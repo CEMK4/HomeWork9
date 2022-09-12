@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Net;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using System.Threading;
-using System.IO;
 using Telegram.Bot.Types.InputFiles;
 
 namespace HomeWork9
@@ -22,10 +19,10 @@ namespace HomeWork9
         static void Main(string[] args)
         {
             string token = "PLACEHOLDER";
-            bot = new TelegramBotClient(token);            
-            bot.StartReceiving(Update,Error);
+            bot = new TelegramBotClient(token);
+            bot.StartReceiving(Update, Error);
             Console.ReadKey();
-        }        
+        }
 
         async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
@@ -50,7 +47,7 @@ namespace HomeWork9
                 }
                 else
                 {
-                    await botClient.SendTextMessageAsync(message.Chat.Id, "Неизвестная команда. 1");
+                    await botClient.SendTextMessageAsync(message.Chat.Id, "Для скачивания документа необходимо отправить его числовой номер.");
                 }
             }
             else
@@ -93,7 +90,7 @@ namespace HomeWork9
                                             {
                                                 list += $"{index + 1}.  {documentList[index]}\n";
                                             }
-                                            await botClient.SendTextMessageAsync(message.Chat.Id, $"{list}\n");                                            
+                                            await botClient.SendTextMessageAsync(message.Chat.Id, $"{list}\n");
                                         }
                                         else
                                             await botClient.SendTextMessageAsync(message.Chat.Id, "Список документов пуст.");
@@ -123,7 +120,7 @@ namespace HomeWork9
                         }
                     default:
                         {
-                            await botClient.SendTextMessageAsync(message.Chat.Id, "Неизвестная команда. 2");
+                            await botClient.SendTextMessageAsync(message.Chat.Id, "Неизвестная команда.");
                             return;
                         }
                 }
